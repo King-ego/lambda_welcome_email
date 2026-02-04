@@ -18,7 +18,6 @@ RUN npm run build && \
 
 WORKDIR /app
 
-ENV PORT=7747
-ENV AWS_LWA_ENABLE_COMPRESSION=true
+CMD ["server.js"]
 
-CMD ["node", "server.js"]
+
