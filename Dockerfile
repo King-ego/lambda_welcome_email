@@ -1,23 +1,23 @@
-FROM node:22.14-alpine
+# Build stage
+FROM node:22.14-alpine AS build
 
 WORKDIR /build
-
 COPY package*.json ./
 RUN npm ci
 
 COPY tsconfig.json ./
 COPY src ./src
+RUN npm run build
 
-RUN npm run build && \
-    mkdir -p /app && \
-    mv dist/* /app/ && \
-    cd /app && \
-    cp /build/package*.json . && \
-    npm ci --omit=dev && \
-    rm -rf /build
+# Final image for AWS Lambda (contains RIC)
+FROM public.ecr.aws/lambda/nodejs:18
 
-WORKDIR /app
+# Install production deps
+COPY --from=build /build/package*.json /var/task/
+RUN npm ci --omit=dev
 
-CMD ["server.js"]
+# Copy compiled output to the Lambda working dir
+COPY --from=build /build/dist /var/task
 
-
+# Lambda handler: filename (sem .js) . export name
+CMD ["server.handler"]
