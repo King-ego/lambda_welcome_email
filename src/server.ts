@@ -6,7 +6,10 @@ interface EventBody {
 }
 
 export const handler = async (event: APIGatewayProxyEvent) => {
-   console.log(`Received event: ${JSON.stringify(event.body, null, 2)}`);
+    const body: EventBody = JSON.parse(event.body || '{}');
+
+    console.log(`Received event for user: ${body.name} with email: ${body.email}`);
+
     return  {
         statusCode: 200,
         body: JSON.stringify({event}),
