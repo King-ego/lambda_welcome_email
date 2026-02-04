@@ -6,10 +6,17 @@ interface EventBody {
 }
 
 export const handler = async (event: APIGatewayProxyEvent) => {
-    const body: EventBody = JSON.parse(event.body || '{}');
+    const raw = event.body ?? '';
+    const decoded = event.isBase64Encoded ? Buffer.from(raw, 'base64').toString('utf8') : raw;
 
-    console.log(`Received event for user: ${body.name} with email: ${body.email}`);
+    let payload: unknown = {};
+    try {
+        payload = decoded ? JSON.parse(decoded) : {};
+    } catch {
+        payload = decoded;
+    }
 
+    console.log('payload:', payload);
     return  {
         statusCode: 200,
         body: JSON.stringify({event}),
