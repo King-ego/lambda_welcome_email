@@ -1,4 +1,5 @@
 import {SQSEvent} from "aws-lambda";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 interface EventBody {
     email: string;
