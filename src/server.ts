@@ -14,6 +14,7 @@ export const handler = async (event: SQSEvent) => {
     console.log('raw event:', JSON.stringify(event));
 
     const record = event.Records[0];
+
     const body = record.body ?? "{}";
     const payload = JSON.parse(body) as EventBody;
 
