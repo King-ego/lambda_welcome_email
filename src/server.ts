@@ -12,7 +12,6 @@ interface EventBody {
 
 export const handler = async (event: SQSEvent) => {
     console.log('raw event:', JSON.stringify(event));
-    console.log(`Received event body: ${event}`);
 
     const record = event.Records[0];
     const body = record.body ?? "{}";
