@@ -16,6 +16,7 @@ export const handler = async (event: SQSEvent) => {
     const record = event.Records[0];
 
     const body = record.body ?? "{}";
+
     const payload = JSON.parse(body) as EventBody;
 
     const to = payload?.email;
