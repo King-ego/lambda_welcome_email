@@ -22,7 +22,8 @@ export const handler = async (event: SQSEvent) => {
     if (to) {
         await sendEmailWithSES(
             to,
-            "Assunto automático", mensagem automática.`
+            "Assunto automático",
+            `Olá ${payload?.name ?? "cliente"}, voce precisa confirmar`
         );
         console.log("email enviado para:", to);
     } else {
