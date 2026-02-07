@@ -29,7 +29,6 @@ export const handler = async (event: SQSEvent) => {
         console.warn("nenhum destinatário encontrado no payload:", payload);
     }
 
-
     return {
         statusCode: 200,
         body: JSON.stringify({event}),
