@@ -17,7 +17,6 @@ export const handler = async (event: SQSEvent) => {
     const body = record.body ?? "{}";
     const payload = JSON.parse(body) as EventBody;
 
-
     const to = payload?.email;
     if (to) {
         await sendEmailWithSES(
