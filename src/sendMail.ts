@@ -12,7 +12,6 @@ async function sendEmailWithSES(to: string, subject: string, bodyText: string) {
         },
         Source: FROM_EMAIL,
     });
-
     return ses.send(cmd);
 }
 
