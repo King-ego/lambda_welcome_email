@@ -9,7 +9,6 @@ interface EventBody {
     name: string;
 }
 
-
 export const handler = async (event: SQSEvent) => {
     console.log('raw event:', JSON.stringify(event));
 
